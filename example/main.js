@@ -61,7 +61,7 @@ class App extends React.Component {
                     <ApngComponent
                         style={{ border: '1px solid #000' }}
                         className="apng-box"
-                        src={apic1}
+                        src={"https://upt.s3-ap-northeast-1.amazonaws.com/DesignImages/5c91b174-8f90-499d-b614-793dac1f1a49.png"}
                     />
                 </div>
                 <div className="box">

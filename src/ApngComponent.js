@@ -9,6 +9,7 @@ import { getImgBuffer } from './ajax';
  * @param {string} src apng's path
  * @param {number} rate apng play rate
  * @param {function} onClick bind animation's click event
+ * @param {function} onFinished bind animation finish
  * @param {bool} autoPlay auto play apng
  * @extends React
  */
@@ -16,7 +17,7 @@ import { getImgBuffer } from './ajax';
 class ApngComponent extends React.Component {
     constructor(props) {
         super(props);
-        const { src = '', rate = 1.0, autoPlay = false } = props;
+        const { src = '', rate = 1.0, autoPlay = false, onFinished } = props;
         this.state = {
             src,
             rate,
@@ -30,6 +31,7 @@ class ApngComponent extends React.Component {
         this.isPlay = false;
         this.hasPerformance = typeof performance !== 'undefined';
         this.speed = 1000 / (rate * 24); //1000/24 每秒24帧
+        this.onFinished = onFinished
     }
     componentDidMount() {
         this.getImgData();
@@ -127,6 +129,10 @@ class ApngComponent extends React.Component {
                 this.player.play();
                 this.isPlay = true;
             }
+            let _this = this
+            setTimeout(() => {
+              _this.onFinished()
+            }, this.apng.playTime)
             this.player.on('end', () => {
                 this.isPlay = false;
             });
