@@ -2,6 +2,7 @@ function getImgBuffer(url) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', url);
+        xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
         xhr.responseType = 'arraybuffer';
 
         xhr.onload = function() {
